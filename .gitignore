@@ -1,2 +1,5 @@
 .venv
 .idea
+gorgeus.py
+page.html
+get_htmls.py

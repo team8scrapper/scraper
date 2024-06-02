@@ -12,7 +12,7 @@ import types
 # -------- SELENIUM config ---------
 options = Options()
 options.add_experimental_option("detach", True)
-options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
+# options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.maximize_window()
 
@@ -29,10 +29,6 @@ products = list(products.mappings())
 
 
 # stores = list(stores.mappings())
-
-
-# products = {'name': 'mateus+rose'}  # TODO: change to the line underneath
-
 
 def take_screenshot(url: str, xpath: str, file_name: str) -> None:
     driver.get(url)
@@ -75,7 +71,9 @@ def objxs_pdp_builder(urls_list) -> list:
         soup = driver.page_source
         dom = etree.HTML(str(soup))
         # print("-->Going to:", store['name'], url)
-
+        # wait = WebDriverWait(driver, timeout=4)
+        # wait.until(lambda d: name.is_displayed())
+        time.sleep(2)
         try:
             name = (dom.xpath(store['x_name'])[0]).text
             # print("name: ", name)
@@ -100,26 +98,29 @@ def objxs_pdp_builder(urls_list) -> list:
 
         objxs_list.append({'name': f'{name}', 'capacity': f'{capacity}', 'price': f'{price}'})
     print(f"\n{len(objxs_list)} object(s) created: ", objxs_list)
-    print("---------------------------------------------------------------------------------------------------------")
+    print("--------------------------------------------------------------------------------------------------------"
+          "-------------------------------------------------------------------")
     return objxs_list
 
 
 # ------------- searching mateus+rose(one product only) on 5 stores -------------
-urls_lst = []
 for store in stores.mappings():
+    urls_lst = []
     # ---- uncomment this section to test each store separately according to the "enable" column in DB ----
-    # if store['enabled'] == 0:
-    #     continue
+    if store['enabled'] == 0:
+        continue
     upper_name = (store['name']).upper()
-    print(f"\nGoing for: {upper_name}")
+    print(f"\nGoing for store: {upper_name}")
     for product in products:
-        # name = "+".join(product['name'].split())
+        # name = "+".join(product['name'].split()) # Search
+        # driver.get(store['search_url'] + name)
         driver.get(store['search_url'] + product['name'])
         handle_start_page(store)
+        time.sleep(3)
         urls_lst = gather_pdp_urls(store)
-        # print("urls mini_set:", urls_lst)
-        print(f"\nSearching for {product['name']}: ")
+        print(f"\nSearching for product: {product['name']}")
         objxs_pdp_builder(urls_lst)
-        # pd_match(objxs_pdp_builder())
+        # pd_match(objxs_pdp_builder()) # final func to be done
+        urls_lst = []
 
 print("---------------------------------...-->|Scraper is done|<--...----------------------------------------------")

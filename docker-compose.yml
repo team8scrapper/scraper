@@ -1,0 +1,9 @@
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 6F4LDiTvazP7Tk
+      MYSQL_DATABASE: mock
+    ports:
+      - "3306:3306"

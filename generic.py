@@ -2,6 +2,7 @@ from defusedxml import lxml
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.remote.webelement import WebElement
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.wait import WebDriverWait
 import time
@@ -74,33 +75,30 @@ def objxs_pdp_builder(urls_list) -> list:
         # wait = WebDriverWait(driver, timeout=4)
         # wait.until(lambda d: name.is_displayed())
         time.sleep(2)
-        try:
-            name = (dom.xpath(store['x_name'])[0]).text
-            # print("name: ", name)
-        except AttributeError:
-            name = dom.xpath(store['x_name'])[0]
-        except IndexError:
-            name = (dom.xpath(store['x_name']))
-        try:
-            capacity = (dom.xpath(store['x_capacity'])[0]).text
-            # print("capacity", capacity)
-        except AttributeError:
-            capacity = dom.xpath(store['x_capacity'])[0]
-        except IndexError:
-            capacity = dom.xpath(store['x_capacity'])
-        try:
-            price = (dom.xpath(store['x_price'])[0]).text  # if isinstance(price, etree._ElementUnicodeResult):
-            # print("price: ", price)
-        except AttributeError:
-            price = dom.xpath(store['x_price'])[0]
-        except IndexError:
-            price = dom.xpath(store['x_price'])
+
+        name = get_text(dom.xpath(store['x_name']))
+        capacity = get_text(dom.xpath(store['x_capacity']))
+        price = get_text(dom.xpath(store['x_price']))
 
         objxs_list.append({'name': f'{name}', 'capacity': f'{capacity}', 'price': f'{price}'})
     print(f"\n{len(objxs_list)} object(s) created: ", objxs_list)
     print("--------------------------------------------------------------------------------------------------------"
           "-------------------------------------------------------------------")
     return objxs_list
+
+
+def get_text(x_path_value):
+    while True:
+        if isinstance(x_path_value, etree._Element):
+            return x_path_value.text.strip()
+        elif isinstance(x_path_value, list):
+            if x_path_value:
+                x_path_value = x_path_value[0]
+                continue
+            else:
+                return ""
+        else:
+            return x_path_value.strip()
 
 
 # ------------- searching mateus+rose(one product only) on 5 stores -------------

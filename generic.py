@@ -15,7 +15,7 @@ import json
 # -------- SELENIUM config ---------
 options = Options()
 options.add_experimental_option("detach", True)
-# options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
+options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.maximize_window()
 
@@ -94,7 +94,7 @@ def objxs_pdp_builder(urls_list) -> list:
         objxs_list.append({'name': f'{name}', 'capacity': f'{capacity}', 'price': f'{price}'})
     print(f"\n{len(objxs_list)} object(s) created: ", objxs_list)
     print("--------------------------------------------------------------------------------------------------------"
-          "-------------------------------------------------------------------")
+          "--------------------------------------------------------------")
     return objxs_list
 
 
@@ -114,6 +114,9 @@ def get_text(x_path_value):
 
 # ------------- searching 8 products on n stores -------------
 for id, store in stores.items():
+    # (un)comment this section to search separately every store
+    if store['enabled'] == 0:
+        continue
     urls_lst = []
     upper_name = (store['name']).upper()
     print(f"\nGoing for store: {upper_name}")

@@ -8,7 +8,8 @@
     "x_url": "//div[@class=\"auc-search__right-section\"]//a[@class=\"link\"]",
     "x_price": "//div[@class=\"attributes\"]//span[@class=\"value\"]",
     "x_capacity": "//*[@id=\"collapsible-attributes-1\"]/ul[1]/li",
-    "x_name": "//h1[@class=\"product-name auc-hero-title\"]"
+    "x_name": "//h1[@class=\"product-name auc-hero-title\"]",
+    "enabled": "1"
   },
   "2": {
     "name": "continente.pt",
@@ -18,7 +19,8 @@
     "x_url": "xpath to product url",
     "x_price": "xpath to price",
     "x_capacity": "xpath to capacity",
-    "x_name": "xpath to product name"
+    "x_name": "xpath to product name",
+    "enabled": "0"
   },
   "3": {
     "name": "garrafinhas.pt",
@@ -28,7 +30,8 @@
     "x_url": "xpath to product url",
     "x_price": "xpath to price",
     "x_capacity": "xpath to capacity",
-    "x_name": "xpath to product name"
+    "x_name": "xpath to product name",
+    "enabled": "0"
   },
   "n": {
     "name": "n.fr",
@@ -38,6 +41,7 @@
     "x_url": "xpath to product url",
     "x_price": "xpath to price",
     "x_capacity": "xpath to capacity",
-    "x_name": "xpath to product name"
+    "x_name": "xpath to product name",
+    "enabled": "0"
   }
 }

@@ -13,7 +13,7 @@ import types
 # -------- SELENIUM config ---------
 options = Options()
 options.add_experimental_option("detach", True)
-# options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
+options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.maximize_window()
 
@@ -74,7 +74,7 @@ def objxs_pdp_builder(urls_list) -> list:
         # print("-->Going to:", store['name'], url)
         # wait = WebDriverWait(driver, timeout=4)
         # wait.until(lambda d: name.is_displayed())
-        time.sleep(2)
+        # time.sleep(2)
 
         name = get_text(dom.xpath(store['x_name']))
         capacity = get_text(dom.xpath(store['x_capacity']))
@@ -105,8 +105,8 @@ def get_text(x_path_value):
 for store in stores.mappings():
     urls_lst = []
     # ---- uncomment this section to test each store separately according to the "enable" column in DB ----
-    if store['enabled'] == 0:
-        continue
+    # if store['enabled'] == 0:
+    #     continue
     upper_name = (store['name']).upper()
     print(f"\nGoing for store: {upper_name}")
     for product in products:

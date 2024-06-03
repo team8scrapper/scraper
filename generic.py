@@ -9,6 +9,7 @@ import time
 from sqlalchemy import create_engine, text
 from lxml import etree
 import types
+import db_mock
 
 # -------- SELENIUM config ---------
 options = Options()
@@ -28,8 +29,10 @@ with engine.connect() as connection:
 
 products = list(products.mappings())
 
+# --------------  *MANUAL DB CONFIG* ------------------
+# stores = db_mock.get_stores_db_mock()
+# products = db_mock.get_products_db_mock()
 
-# stores = list(stores.mappings())
 
 def take_screenshot(url: str, xpath: str, file_name: str) -> None:
     driver.get(url)
@@ -101,6 +104,8 @@ def get_text(x_path_value):
             return x_path_value.strip()
 
 
+print(list(stores.mappings()))
+print(products)
 # ------------- searching mateus+rose(one product only) on 5 stores -------------
 for store in stores.mappings():
     urls_lst = []

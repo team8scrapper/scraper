@@ -16,3 +16,23 @@
 
 ### MySQL cheat sheet:
 [Cheat Sheet](https://devhints.io/mysql)
+
+# Running the program:
+
+First, install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+Then run the program on command line:
+
+```bash
+python generic.py
+```
+
+Obs: Dont worry abot the warnings:
+```bash
+/bin/sh: line 1: google-chrome: command not found
+/bin/sh: line 1: google-chrome: command not found
+```
+It's NORMAL

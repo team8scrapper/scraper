@@ -120,7 +120,7 @@ for id, store in stores.items():
     for product in products:
         driver.get(store['search_url'] + product['name'])
         handle_start_page(store)
-        time.sleep(3)
+        # time.sleep(3)
         urls_lst = gather_pdp_urls(store)
         print(f"\nSearching for product: {product['name']}")
         objxs_pdp_builder(urls_lst)

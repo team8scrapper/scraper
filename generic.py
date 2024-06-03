@@ -27,6 +27,7 @@ with engine.connect() as connection:
     products = connection.execute(text("SELECT * FROM products"))
     stores = connection.execute(text("SELECT * FROM stores"))
 
+
 products = list(products.mappings())
 
 # --------------  *MANUAL DB CONFIG* ------------------
@@ -104,9 +105,7 @@ def get_text(x_path_value):
             return x_path_value.strip()
 
 
-print(list(stores.mappings()))
-print(products)
-# ------------- searching mateus+rose(one product only) on 5 stores -------------
+# ------------- searching 8 products on 5 stores -------------
 for store in stores.mappings():
     urls_lst = []
     # ---- uncomment this section to test each store separately according to the "enable" column in DB ----

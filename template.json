@@ -1,0 +1,43 @@
+
+{
+  "1": {
+    "name": "Auchan",
+    "search_url": "https://www.auchan.pt/pt/pesquisa?q=",
+    "x_cookies": "//button[@id=\"onetrust-accept-btn-handler\"]",
+    "x_permission": "xpath to permission (if needed)",
+    "x_url": "//div[@class=\"auc-search__right-section\"]//a[@class=\"link\"]",
+    "x_price": "//div[@class=\"attributes\"]//span[@class=\"value\"]",
+    "x_capacity": "//*[@id=\"collapsible-attributes-1\"]/ul[1]/li",
+    "x_name": "//h1[@class=\"product-name auc-hero-title\"]"
+  },
+  "2": {
+    "name": "continente.pt",
+    "search_url": "www.continente.pt/search=q?",
+    "x_cookies": "xpath to cookies",
+    "x_permission": "xpath to permission (if needed)",
+    "x_url": "xpath to product url",
+    "x_price": "xpath to price",
+    "x_capacity": "xpath to capacity",
+    "x_name": "xpath to product name"
+  },
+  "3": {
+    "name": "garrafinhas.pt",
+    "search_url": "www.garrafinhas.pt/search=q?",
+    "x_cookies": "xpath to cookies",
+    "x_permission": "xpath to permission (if needed)",
+    "x_url": "xpath to product url",
+    "x_price": "xpath to price",
+    "x_capacity": "xpath to capacity",
+    "x_name": "xpath to product name"
+  },
+  "n": {
+    "name": "n.fr",
+    "search_url": "www.n.com/search=q?",
+    "x_cookies": "xpath to cookies",
+    "x_permission": "xpath to permission (if needed)",
+    "x_url": "xpath to product url",
+    "x_price": "xpath to price",
+    "x_capacity": "xpath to capacity",
+    "x_name": "xpath to product name"
+  }
+}

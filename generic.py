@@ -10,11 +10,12 @@ from sqlalchemy import create_engine, text
 from lxml import etree
 import types
 import db_mock
+import json
 
 # -------- SELENIUM config ---------
 options = Options()
 options.add_experimental_option("detach", True)
-options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
+# options.add_argument('--headless')  # Uncomment this section to run the app HEADLESS
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 driver.maximize_window()
 
@@ -23,16 +24,22 @@ connection_string = "mysql+mysqlconnector://root:6F4LDiTvazP7Tk@127.0.0.1:3306/m
 engine = create_engine(connection_string, echo=True)
 
 # ------- addressing STORE table's rows(db) to the variable store--------
-with engine.connect() as connection:
-    products = connection.execute(text("SELECT * FROM products"))
-    stores = connection.execute(text("SELECT * FROM stores"))
+# with engine.connect() as connection:
+#     products = connection.execute(text("SELECT * FROM products"))
+#     stores = connection.execute(text("SELECT * FROM stores"))
 
 
-products = list(products.mappings())
+# products = list(products.mappings())
 
 # --------------  *MANUAL DB CONFIG* ------------------
 # stores = db_mock.get_stores_db_mock()
-# products = db_mock.get_products_db_mock()
+products = db_mock.get_products_db_mock()
+
+# ------------ making the .json the DB ---------------
+with open("template.json", 'r') as fd:
+    stores = fd.read()
+
+stores = json.loads(stores)
 
 
 def take_screenshot(url: str, xpath: str, file_name: str) -> None:
@@ -105,24 +112,18 @@ def get_text(x_path_value):
             return x_path_value.strip()
 
 
-# ------------- searching 8 products on 5 stores -------------
-for store in stores.mappings():
+# ------------- searching 8 products on n stores -------------
+for id, store in stores.items():
     urls_lst = []
-    # ---- uncomment this section to test each store separately according to the "enable" column in DB ----
-    # if store['enabled'] == 0:
-    #     continue
     upper_name = (store['name']).upper()
     print(f"\nGoing for store: {upper_name}")
     for product in products:
-        # name = "+".join(product['name'].split()) # Search
-        # driver.get(store['search_url'] + name)
         driver.get(store['search_url'] + product['name'])
         handle_start_page(store)
         time.sleep(3)
         urls_lst = gather_pdp_urls(store)
         print(f"\nSearching for product: {product['name']}")
         objxs_pdp_builder(urls_lst)
-        # pd_match(objxs_pdp_builder()) # final func to be done
         urls_lst = []
 
 print("---------------------------------...-->|Scraper is done|<--...----------------------------------------------")

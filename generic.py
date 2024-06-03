@@ -114,8 +114,8 @@ def get_text(x_path_value):
 
 # ------------- searching 8 products on n stores -------------
 for id, store in stores.items():
-    # (un)comment this section to search separately every store
-    if store['enabled'] == 0:
+    # (un)comment this section to search separately every store according to 'enabled' column
+    if store['enabled'] == "0":
         continue
     urls_lst = []
     upper_name = (store['name']).upper()
